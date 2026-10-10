@@ -1,0 +1,25 @@
+# Internal Wayfair working area — never publish to GitHub Pages.
+work/
+
+# Credentials and secrets.
+.env
+.env.*
+*.pem
+*.key
+*API*key*
+*api*key*
+*token*
+*TOKEN*
+
+# Raw data, generators, and historical material.
+*.json
+*.py
+snapshots/
+**/snapshots/
+__pycache__/
+*.pyc
+
+# Local/editor noise.
+.DS_Store
+Thumbs.db
+
