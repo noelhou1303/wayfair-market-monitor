@@ -28,6 +28,8 @@
   .page > header + .panel > p.muted { display:none !important; }
   .page > header > .grid { display:none !important; }
   .image-badge { display:none !important; }
+  .scope-update-stamp { margin:4px 0 10px; color:#667085; font-size:12px; }
+  .scope-update-stamp b { color:#344054; }
   .price-density { margin-top:14px; padding:10px 12px; border:1px solid #d9e0e8; border-radius:8px; background:#fbfcfd; }
   .price-density-head { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; flex-wrap:wrap; }
   .price-density-title { font-weight:700; }
@@ -299,6 +301,13 @@ function draw(panel,metric){const pts=panel.points||[],c=panel.querySelector('ca
   let category = 'bar_cabinet';
   let currentView = 'cards';
   let redrawPriceDensity = () => {};
+  const updateStamp = (() => {
+    if (!pageTitle) return null;
+    const node = document.createElement('div');
+    node.className = 'scope-update-stamp';
+    pageTitle.insertAdjacentElement('afterend', node);
+    return node;
+  })();
 
   function currentLanguage() {
     return document.body.classList.contains('lang-zh') ? 'zh' : 'en';
@@ -932,6 +941,10 @@ function draw(panel,metric){const pts=panel.points||[],c=panel.querySelector('ca
       : (lang === 'zh' ? '当前平台 / 品类暂无数据' : 'No dataset connected for this scope');
     if (title) title.textContent = scopeLabels[scopeId()][lang === 'zh' ? 1 : 0];
     if (pageTitle && monitorTitles[scopeId()]) pageTitle.innerHTML = '<span class="en">' + monitorTitles[scopeId()][0] + '</span><span class="zh">' + monitorTitles[scopeId()][1] + '</span>';
+    const latestSnapshot = currentScopeData?.meta?.latest_snapshot || '';
+    if (updateStamp) updateStamp.innerHTML = latestSnapshot
+      ? bi('Last updated', '更新日期') + ': <b>' + escapeHtml(String(latestSnapshot)) + '</b>'
+      : bi('Update date unavailable', '更新日期暂无') + '';
     document.title = monitorTitles[scopeId()]?.[lang === 'zh' ? 1 : 0] || scopeLabels[scopeId()][lang === 'zh' ? 1 : 0] + ' Market Monitor';
     redrawPriceDensity();
   }
