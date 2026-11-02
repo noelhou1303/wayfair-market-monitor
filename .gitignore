@@ -1,5 +1,5 @@
 # Internal Wayfair working area — never publish to GitHub Pages.
-work/
+work/*
 
 # Credentials and secrets.
 .env
@@ -22,4 +22,19 @@ __pycache__/
 # Local/editor noise.
 .DS_Store
 Thumbs.db
+
+# Version-controlled Stage 2 architecture only. Raw datasets, snapshots,
+# review/provenance data, and generated validation outputs remain ignored.
+!work/PROJECT_README.md
+!work/config/
+!work/config/monitor_config.json
+!work/pipeline/
+!work/pipeline/README.md
+!work/pipeline/validate.py
+!work/pipeline/refresh.py
+!work/pipeline/build_scope_switch_test.py
+!work/pipeline/schema_contract.json
+!work/pipeline/__init__.py
+!work/legacy/
+!work/legacy/README.md
 
